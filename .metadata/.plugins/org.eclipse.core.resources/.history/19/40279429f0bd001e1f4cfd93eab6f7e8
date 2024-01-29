@@ -1,0 +1,77 @@
+package task1;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class TicTacToeGUI extends JFrame implements ActionListener
+{
+	
+	
+	    private JButton[][] buttons;
+	    private char currentPlayer;
+
+	    public TicTacToeGUI() {
+	        setTitle("Tic-Tac-Toe");
+	        setSize(300, 300);
+	        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	        setLayout(new GridLayout(3, 3));
+	        initializeButtons();
+	        currentPlayer = 'X';
+	    }
+
+	    private void initializeButtons() {
+	        buttons = new JButton[3][3];
+	        for (int i = 0; i < 3; i++) {
+	            for (int j = 0; j < 3; j++) {
+	                buttons[i][j] = new JButton("");
+	                buttons[i][j].setFont(new Font("Arial", Font.PLAIN, 40));
+	                buttons[i][j].addActionListener(this);
+	                add(buttons[i][j]);
+	            }
+	        }
+	    }
+
+	    @Override
+	    public void actionPerformed(ActionEvent e) {
+	        JButton clickedButton = (JButton) e.getSource();
+	        if (clickedButton.getText().equals("")) {
+	            clickedButton.setText(String.valueOf(currentPlayer));
+	            if (checkWin()) {
+	                JOptionPane.showMessageDialog(this, "Player " + currentPlayer + " wins!");
+	                resetGame();
+	            } else if (isBoardFull()) {
+	                JOptionPane.showMessageDialog(this, "It's a draw!");
+	                resetGame();
+	            } else {
+	                currentPlayer = (currentPlayer == 'X') ? 'O' : 'X';
+	            }
+	        } else {
+	            JOptionPane.showMessageDialog(this, "Invalid move! Try again.");
+	        }
+	    }
+
+	    private boolean checkWin() {
+	        // Implement win-checking logic
+	        // Return true if there is a winner, false otherwise
+	        return false;
+	    }
+
+	    private boolean isBoardFull() {
+	        // Implement logic to check if the board is full
+	        // Return true if full, false otherwise
+	        return false;
+	    }
+
+	    private void resetGame() {
+	        // Implement logic to reset the game
+	    }
+
+	    public static void main(String[] args) {
+	        SwingUtilities.invokeLater(() -> {
+	            TicTacToeGUI ticTacToeGUI = new TicTacToeGUI();
+	            ticTacToeGUI.setVisible(true);
+	        });
+	    }
+	}
+
